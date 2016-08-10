@@ -20,14 +20,14 @@ upstream versions and, consequently, often breaks with new browsers
 (e.g. when the browser version exceeds the known range).
 
 The purpose of **webica** is to generate a Clojure wrapper for Selenium
-making heavy use of instrospection in the sprit of
+making heavy use of introspection in the spirit of
 [amazonica](https://github.com/mcohen01/amazonica)
 which should track Selenium (the Clojure source code can
 be generated nearly automatically) and expose new upstream APIs more quickly.
 
 Because of the use of introspection it is not easy to generate
 [codox](https://github.com/weavejester/codox) style API documents
-(see webica#1 ). However every **webica**
+(see [#1](https://github.com/tmarble/webica/issues/1)). However every **webica**
 namespace has a `show-functions` function
 to explain the symbols available in that namespace.
 

@@ -27,14 +27,9 @@ be generated nearly automatically) and expose new upstream APIs more quickly.
 
 Because of the use of introspection it is not easy to generate
 [codox](https://github.com/weavejester/codox) style API documents
-(see #1). However every **webica**
+(see webica#1 ). However every **webica**
 namespace has a `show-functions` function
 to explain the symbols available in that namespace.
-
-## FIXME
-no docs, how to troubleshoot (turn on logging, add coercions)
-no IE
-no Safari
 
 ## Prerequisites
 

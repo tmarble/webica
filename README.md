@@ -41,6 +41,13 @@ as obviously you also need to have the corresponding driver installed:
 * Safari: [safaridriver](https://github.com/SeleniumHQ/selenium/wiki/SafariDriver)
 * Edge: [webdriver](https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/)
 
+For using Clojure boot scripts (like the example below) or for
+developing **webica** please install [boot](http://boot-clj.com/)
+if you haven't done so already.
+
+For more on boot see [Sean's blog](http://seancorfield.github.io/blog/2016/02/02/boot-new/) and the [boot Wiki](https://github.com/boot-clj/boot/wiki).
+This is how [Clojure boot scripts](https://github.com/boot-clj/boot/wiki/Scripts) work.
+
 ## Example
 
 Check out the example Clojure boot script using **webica** that
@@ -67,11 +74,6 @@ Here are some helpful Selenium links
 Logging is controlled by the following environment variables:
 * **WEBICA_LOG** the name of the log file [webica.log]
 * **WEBICA_LEVEL** the desired log level [warn] *must be one of:* `#{"trace" "debug" "info" "warn" "error" "fatal" "report"}`
-
-The **webica** library uses [boot](http://boot-clj.com/) as a build tool. For
-more on boot see [Sean's blog](http://seancorfield.github.io/blog/2016/02/02/boot-new/) and the [boot Wiki](https://github.com/boot-clj/boot/wiki).
-
-Install [boot](http://boot-clj.com/) if you haven't done so already.
 
 ## Copyright and license
 

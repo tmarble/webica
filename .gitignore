@@ -1,3 +1,6 @@
+# .gitignore
+
+# Clojure specific
 pom.xml
 pom.xml.asc
 *jar
@@ -9,4 +12,15 @@ pom.xml.asc
 .lein-repl-history
 .lein-plugins/
 .lein-failures
+
+# project specfic
+*.log
+*.prev
+
+# Editor artifacts
 .nrepl-port
+*~
+
+# silly Mac filesystem
+*.DS_Store*
+*._*

@@ -68,6 +68,11 @@ Logging is controlled by the following environment variables:
 * **WEBICA_LOG** the name of the log file [webica.log]
 * **WEBICA_LEVEL** the desired log level [warn] *must be one of:* `#{"trace" "debug" "info" "warn" "error" "fatal" "report"}`
 
+The **webica** library uses [boot](http://boot-clj.com/) as a build tool. For
+more on boot see [Sean's blog](http://seancorfield.github.io/blog/2016/02/02/boot-new/) and the [boot Wiki](https://github.com/boot-clj/boot/wiki).
+
+Install [boot](http://boot-clj.com/) if you haven't done so already.
+
 ## Copyright and license
 
 Copyright © 2016 Tom Marble

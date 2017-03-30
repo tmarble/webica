@@ -37,12 +37,12 @@
 (deftest testing-webica-core
   (testing "testing-webica-core"
     (is (= expected-title
-          (let [_ (firefox/start-firefox)
-                title (cheese)]
-            (browser/quit)
-            title)))
+           (let [_ (firefox/start-firefox)
+                 title (cheese)]
+             (browser/quit)
+             title)))
     (is (= expected-title
-          (let [_ (chrome/start-chrome)
-                title (cheese)]
-            (browser/quit)
-            title)))))
+           (let [_ (chrome/start-chrome)
+                 title (cheese)]
+             (browser/quit)
+             title)))))

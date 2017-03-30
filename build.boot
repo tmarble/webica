@@ -1,7 +1,7 @@
 (def project 'webica)
 (def description "A Clojure binding for Selenium WebDriver")
 (def project-url "https://github.com/tmarble/webica")
-(def selenium-version "3.0.0-beta2")
+(def selenium-version "3.0.1")
 (def webica-version "-clj0")
 (def version (str selenium-version webica-version))
 
@@ -14,8 +14,8 @@
                     [me.raynes/fs "1.4.6"]
                     [avenir "0.2.1"]
                     [com.taoensso/timbre "4.7.3"]
+                    [pom-versions "0.1.1"]
                     ;; testing/development ONLY
-                    [aleph "0.4.2-alpha6" :scope "test"]
                     [adzerk/boot-test "1.1.2" :scope "test"]
                     [adzerk/bootlaces "0.1.13" :scope "test"]]
                   ['org.seleniumhq.selenium/selenium-java selenium-version]))
@@ -27,7 +27,7 @@
 (bootlaces! version)
 
 (task-options!
-  test {:namespaces #{'testing.webica.core}}
+ test {:namespaces #{'testing.webica.core}}
   pom {:project     project
        :version     version
        :description description

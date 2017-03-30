@@ -8,36 +8,21 @@
   "Generation functions to make Clojure wrapper for Selenium WebDriver"
   (:require [clojure.string :as string]
             [clojure.java.shell :refer [sh]]
+            [pom-versions.core :refer [get-versions] :as pv]
             [camel-snake-kebab.core :as translate]
             [webica.core :as w]
-            [aleph.http :as http]
-            [byte-streams :as bs]
             [me.raynes.fs :as fs]))
 
 (def #^{:added "clj0"}
   selenium-maven-url
   "Repository URL to determine published Selenium versions"
-  "http://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-java/")
-
-(def #^{:added "clj0"}
-  firefox-user-agent
-  "Maven will refuse to reply to a query if it thinks you're a robot :)"
-  "Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/34.0")
+  "http://repo1.maven.org/maven2/org/seleniumhq/selenium/selenium-java/maven-metadata.xml")
 
 (defn get-selenium-versions
   "Returns a vector of known Selenium versions (in order)"
   {:added "clj0"}
-  []
-  (let [options {:headers {"User-Agent" firefox-user-agent}}
-        {:keys [status body]} @(http/get selenium-maven-url options)]
-    (if (not= status 200)
-      (throw (AssertionError.
-               (str "Unable to get Selenium versions: " status)))
-      (let [html (bs/to-string body)
-            vers (re-seq #"href=\"\d.*\"" html)
-            get-ver (fn [x] (string/replace x #"href=\"(.*)/\"" "$1"))
-            versions (vec (sort (map get-ver vers)))]
-        versions))))
+  ([]
+   (pv/get-versions (slurp selenium-maven-url))))
 
 (defn- pprint-coercions [coercions]
   (let [n (count coercions)]

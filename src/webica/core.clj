@@ -31,7 +31,8 @@ NOTE: load this namespace first when using webica."
            [org.openqa.selenium.remote
             RemoteWebDriver RemoteWebElement]
            [org.openqa.selenium.support.ui
-            WebDriverWait]))
+            WebDriverWait
+            ExpectedConditions]))
 
 ;; yes, the sleep function really wants to live somewhere else
 (defn sleep
@@ -217,6 +218,7 @@ on how to generate the Clojure source code."
    WebDriver {:exclude '[get]}
    WebDriverWait {:extra web-driver-wait-extra
                   :coercions web-driver-wait-coercions}
+   ExpectedConditions {:exclude '[not or and]}
    WebElement {}})
 
 (def #^{:added "clj0"}

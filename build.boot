@@ -8,13 +8,13 @@
 (set-env!
   :source-paths #{"src" "test"}
   :dependencies (conj
-                  '[[org.clojure/clojure "1.9.0-alpha10" :scope "provided"]
+                  '[[org.clojure/clojure "1.9.0-alpha15" :scope "provided"]
                     [camel-snake-kebab "0.4.0"]
                     [environ "1.1.0"]
                     [me.raynes/fs "1.4.6"]
                     [avenir "0.2.1"]
                     [com.taoensso/timbre "4.7.3"]
-                    [pom-versions "0.1.1"]
+                    [pom-versions "0.1.2"]
                     ;; testing/development ONLY
                     [adzerk/boot-test "1.1.2" :scope "test"]
                     [adzerk/bootlaces "0.1.13" :scope "test"]]

@@ -23,3 +23,32 @@
         'cheese!'))))"
   [apply-fn]
   (Condition. apply-fn))
+
+(defn init-webdriver-wait
+  "Create the WebDriverWait from existing WebDriver object."
+  ([driver]
+    (init-webdriver-wait driver 10))
+  ([driver max-timeouts]
+    ;; Always maximize window
+    (-> driver
+        .manage
+        .window
+        .maximize)
+   ;; Manage the implicit timeouts
+   (.implicitlyWait
+     (-> driver
+         .manage
+         .timeouts)
+     max-timeouts java.util.concurrent.TimeUnit/SECONDS)
+   (let [wait-instance (org.openqa.selenium.support.ui.WebDriverWait. driver max-timeouts)]
+     wait-instance)))
+
+(defn wait-until
+  "Wait until a given condition is met or raise exception if the condition can't be met.
+
+  Example:
+  (wait-until presence-of-element-located
+              xpath
+              \"some-id\")"
+  [wdriver expected-cond-fn by-fn arg]
+  (.until wdriver (expected-cond-fn (by-fn arg))))

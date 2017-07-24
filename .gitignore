@@ -19,6 +19,7 @@ pom.xml.asc
 
 # Editor artifacts
 .nrepl-port
+.nrepl-history
 *~
 
 # silly Mac filesystem

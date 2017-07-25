@@ -7,7 +7,7 @@
 (ns webica.core
   "Clojure wrapper for Selenium Webdriver
 
-NOTE: load this namespace first when using webica."
+  NOTE: load this namespace first when using webica."
   (:require [clojure.string :as string]
             [clojure.pprint :as pp :refer [pprint]]
             [environ.core :refer [env]]
@@ -18,6 +18,7 @@ NOTE: load this namespace first when using webica."
             Reflector]
            [java.lang.reflect
             InvocationTargetException ParameterizedType Modifier Type]
+           [java.util.concurrent.TimeUnit]
            [com.google.common.collect
             ImmutableList ImmutableMap]
            [org.openqa.selenium
@@ -31,8 +32,7 @@ NOTE: load this namespace first when using webica."
            [org.openqa.selenium.remote
             RemoteWebDriver RemoteWebElement]
            [org.openqa.selenium.support.ui
-            WebDriverWait
-            ExpectedConditions]))
+            WebDriverWait ExpectedCondition ExpectedConditions]))
 
 ;; yes, the sleep function really wants to live somewhere else
 (defn sleep
@@ -185,7 +185,37 @@ NOTE: load this namespace first when using webica."
         (string/lower-case (driver/get-title driver))
         'cheese!'))))\"
   [apply-fn]
-  (Condition. apply-fn))")
+  (Condition. apply-fn))
+
+(defn init-webdriver-wait
+  \"Create the WebDriverWait from existing WebDriver object.\"
+  ([driver]
+    (init-webdriver-wait driver 10))
+  ([driver max-timeouts]
+    ;; Always maximize window
+    (-> driver
+        .manage
+        .window
+        .maximize)
+   ;; Manage the implicit timeouts
+   (.implicitlyWait
+     (-> driver
+         .manage
+         .timeouts)
+     max-timeouts java.util.concurrent.TimeUnit/SECONDS)
+   (let [wait-instance (org.openqa.selenium.support.ui.WebDriverWait. driver max-timeouts)]
+     wait-instance)))
+
+(defn wait-until
+  \"Wait until a given condition is met or raise exception if the condition can't be met.
+
+  Example:
+  (wait-until presence-of-element-located
+              xpath
+              \\\"some-id\\\")\"
+  [wdriver expected-cond-fn by-fn arg]
+  (.until wdriver (expected-cond-fn (by-fn arg))))
+")
 
 (def #^{:added "clj0"}
   web-driver-wait-coercions

@@ -1,36 +1,37 @@
 #!/usr/bin/env boot
 ;; -*- Mode: clojure; coding: utf-8  -*-
-(set-env! :dependencies '[[webica "3.0.0-beta2-clj0"]])
+(set-env! :dependencies '[[webica "3.4.0-clj0"]])
 
 (require
   '[clojure.string :as string]
   '[webica.core :as w] ;; must always be first
-  '[webica.by :as by]
+  '[webica.by :refer [partial-link-text] :as by]
   '[webica.web-driver :as driver]
   '[webica.firefox-driver :as firefox]
+  '[webica.chrome-driver :as chrome]
   '[webica.web-element :as element]
   '[webica.web-driver-wait :as wait]
+  '[webica.expected-conditions :refer [presence-of-element-located] :as ec]
   '[webica.remote-web-driver :as browser])
 
-(defn lmgtfy [search]
+(defn lmgtfy [wdriver search]
   (browser/get "http://www.google.com")
   (let [q (browser/find-element (by/name "q"))]
     (element/send-keys q search)
     (element/submit q)
-    (wait/until (wait/instance 10)
-      (wait/condition
-        (fn [driver]
-          (string/starts-with?
-            (string/lower-case (driver/get-title driver))
-            (string/lower-case search)))))
-    (println "Was that so hard?")
-    (w/sleep 10)))
+    (wait/wait-until wdriver
+                     presence-of-element-located
+                     partial-link-text
+                     search)
+    (println "Was that so hard?")))
 
 (defn -main
   "Webica example of 'Let me Google that for you'"
   [& args]
   (let [search (if (empty? args) "Clojure Conj 2016"
                    (apply str (interpose " " args)))]
-    (firefox/start-firefox)
-    (lmgtfy search)
+    ;;(firefox/start-firefox)
+    (chrome/start-chrome)
+    (let [wdriver (wait/init-webdriver-wait (driver/get-instance))]
+      (lmgtfy wdriver search))
     (browser/quit)))

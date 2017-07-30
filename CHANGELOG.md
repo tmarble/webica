@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file. This change
 ### [Unreleased]
 
 Changed
-- *TBD*
+- Commented out CIDER dependency in build.boot (Closes #13)
 
 ### [3.0.0-beta2-clj0] - 2016-08-10
 

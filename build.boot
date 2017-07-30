@@ -35,19 +35,6 @@
        :scm         {:url project-url}
        :license     {"Apache-2.0" "http://opensource.org/licenses/Apache-2.0"}})
 
-(deftask clj-dev
-  "Clojure REPL for CIDER"
-  []
-  (comp
-    (cider)
-    (repl :server true)
-    (wait)))
-
-(deftask cider-boot
-  "Cider boot params task"
-  []
-  (clj-dev))
-
 (deftask build-target
   "Build the project locally as a JAR."
   [d dir PATH #{str} "the set of directories to write to (target)."]
@@ -72,3 +59,27 @@
    s selenium VERSION str "selenium version [latest]"]
   (set-env! :source-paths #{"generate"})
   (update-code :dry-run dry-run :selenium selenium))
+
+;; For Emacs if you Customize your Cider Boot Parameters to 'cider-boot'
+;; then this task will be invoked upon M-x cider-jack-in
+;; which is on C-c M-j
+;; https://cider.readthedocs.io/en/latest/up_and_running/
+
+;; These tasks is conditional on having cider defined which typically
+;; is done in ~/.boot/profile.boot
+;;
+;; FFI see also: https://github.com/tmarble/tenzing3
+;; Uncomment below if you use CIDER
+
+;; (deftask clj-dev
+;;   "Clojure REPL for CIDER"
+;;   []
+;;   (comp
+;;     (cider)
+;;     (repl :server true)
+;;     (wait)))
+
+;; (deftask cider-boot
+;;   "Cider boot params task"
+;;   []
+;;   (clj-dev))

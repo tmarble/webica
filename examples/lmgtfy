@@ -1,6 +1,6 @@
 #!/usr/bin/env boot
 ;; -*- Mode: clojure; coding: utf-8  -*-
-(set-env! :dependencies '[[webica "3.0.0-beta2-clj0"]])
+(set-env! :dependencies '[[webica "3.4.0-clj0"]])
 
 (require
   '[clojure.string :as string]

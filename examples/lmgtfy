@@ -22,11 +22,6 @@
     (element/submit q)
     (wait/until wdriver (ec/title-contains search))
     (println (str "current URL of your search : " (driver/get-current-url)))
-    #_
-    ;; TODO: use assert to confirm the result e.g. if the search is "Clojure Conj 2017"
-    ;; the assert would be something like
-    (assert (= "https://www.google.com/search?site=&source=hp&q=Clojure+Conj+2017&oq=&gs_l="
-               (driver/get-current-url)))
     ;; Note: wait for a bit to let the user see the result
     (w/sleep 5)
     (println "Was that so hard?")))
@@ -36,13 +31,7 @@
   [& args]
   (let [search (if (empty? args) "Clojure Conj 2017"
                    (apply str (interpose " " args)))]
-    (let [chrome-binary (chrome/get-chromedriver-binary "/usr/lib/chromium/chromedriver")]
+    (let [chrome-binary (chrome/get-chromedriver-binary)]
       (chrome/start-chrome)
-      #_
-      ;; Or if you prefer to start chrome headlessly
-      (chrome/start-chrome chrome-binary
-                           "headless" ;; uncomment this out to run headless
-                           "--window-size=1024,1080"
-                           "--disable-gpu")
       (lmgtfy search)
       (browser/quit))))

@@ -171,12 +171,11 @@
   ([]
    (start-chrome (get-chromedriver-binary)))
   ([chromedriver-binary]
-   (start-chrome chromedriver-binary))
+   (System/setProperty driver-prop (get-chromedriver-binary chromedriver-binary))
+   (instance))
   ([chromedriver-binary & args]
    (System/setProperty driver-prop (get-chromedriver-binary chromedriver-binary))
-   (if args
-     (instance (init-chrome-options args))
-     (instance))))")
+   (instance (init-chrome-options args))))")
 
 (def #^{:added "clj0"}
   firefox-driver-extra

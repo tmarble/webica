@@ -37,8 +37,11 @@
   (let [search (if (empty? args) "Clojure Conj 2017"
                    (apply str (interpose " " args)))]
     (let [chrome-binary (chrome/get-chromedriver-binary "/usr/lib/chromium/chromedriver")]
+      (chrome/start-chrome)
+      #_
+      ;; Or if you prefer to start chrome headlessly
       (chrome/start-chrome chrome-binary
-                           ;; "headless" ;; uncomment this out to run headless
+                           "headless" ;; uncomment this out to run headless
                            "--window-size=1024,1080"
                            "--disable-gpu")
       (lmgtfy search)

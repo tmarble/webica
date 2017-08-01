@@ -31,7 +31,6 @@
   [& args]
   (let [search (if (empty? args) "Clojure Conj 2017"
                    (apply str (interpose " " args)))]
-    (let [chrome-binary (chrome/get-chromedriver-binary)]
-      (chrome/start-chrome)
-      (lmgtfy search)
-      (browser/quit))))
+    (chrome/start-chrome)
+    (lmgtfy search)
+    (browser/quit)))

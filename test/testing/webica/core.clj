@@ -71,7 +71,7 @@
       (browser/quit)
       (is (string/includes? actual-url partial-url)))
 
-    (let [chrome-binary (chrome/get-chromedriver-binary "/usr/lib/chromium/chromedriver")
+    (let [chrome-binary (chrome/get-chromedriver-binary)
           _             (chrome/start-chrome chrome-binary "headless") ;; Note: needed chromedriver version 2.30.x+ which support headless
           actual-url    (lmgtfy search-term)]
       (browser/quit)

@@ -51,7 +51,7 @@ This is how [Clojure boot scripts](https://github.com/boot-clj/boot/wiki/Scripts
 ## Example
 
 Check out the example Clojure boot script using **webica** that
-imitates [Let me Google that for you](lmgtfy.com) on the
+imitates [Let me Google that for you](https://lmgtfy.com) on the
 command line.
 
 ````

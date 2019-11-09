@@ -1,14 +1,14 @@
 (def project 'webica)
 (def description "A Clojure binding for Selenium WebDriver")
 (def project-url "https://github.com/tmarble/webica")
-(def selenium-version "3.4.0")
+(def selenium-version "3.8.1")
 (def webica-version "-clj0")
 (def version (str selenium-version webica-version))
 
 (set-env!
   :source-paths #{"src" "test"}
   :dependencies (conj
-                  '[[org.clojure/clojure "1.9.0-alpha17" :scope "provided"]
+                  '[[org.clojure/clojure "1.9.0" :scope "provided"]
                     [camel-snake-kebab "0.4.0"]
                     [environ "1.1.0"]
                     [me.raynes/fs "1.4.6"]

@@ -3,34 +3,34 @@
 (set-env! :dependencies '[[webica "3.4.0-clj0"]])
 
 (require
-  '[clojure.string :as string]
-  '[webica.core :as w] ;; must always be first
-  '[webica.by :as by]
-  '[webica.web-driver :as driver]
-  '[webica.firefox-driver :as firefox]
-  '[webica.web-element :as element]
-  '[webica.web-driver-wait :as wait]
-  '[webica.remote-web-driver :as browser])
+ '[clojure.string :as string]
+ '[webica.core :as w] ;; must always be first
+ '[webica.by :as by]
+ '[webica.web-driver :as driver]
+ '[webica.firefox-driver :as firefox]
+ '[webica.chrome-driver :as chrome]
+ '[webica.web-element :as element]
+ '[webica.web-driver-wait :as wait]
+ '[webica.expected-conditions :as ec]
+ '[webica.remote-web-driver :as browser])
 
 (defn lmgtfy [search]
   (browser/get "http://www.google.com")
-  (let [q (browser/find-element (by/name "q"))]
+  (let [wdriver (wait/init-web-driver-wait (driver/get-instance))
+        q       (browser/find-element (by/name "q"))]
     (element/send-keys q search)
     (element/submit q)
-    (wait/until (wait/instance 10)
-      (wait/condition
-        (fn [driver]
-          (string/starts-with?
-            (string/lower-case (driver/get-title driver))
-            (string/lower-case search)))))
-    (println "Was that so hard?")
-    (w/sleep 10)))
+    (wait/until wdriver (ec/title-contains search))
+    (println (str "current URL of your search : " (driver/get-current-url)))
+    ;; Note: wait for a bit to let the user see the result
+    (w/sleep 5)
+    (println "Was that so hard?")))
 
 (defn -main
   "Webica example of 'Let me Google that for you'"
   [& args]
-  (let [search (if (empty? args) "Clojure Conj 2016"
+  (let [search (if (empty? args) "Clojure Conj 2017"
                    (apply str (interpose " " args)))]
-    (firefox/start-firefox)
+    (chrome/start-chrome)
     (lmgtfy search)
     (browser/quit)))
